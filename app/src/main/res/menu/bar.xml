@@ -1,0 +1,14 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:Stop="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.xin.stop.BarActivity" >
+    <item android:id="@+id/action_settings"
+        android:title="@string/action_settings"
+        android:orderInCategory="100"
+        Stop:showAsAction="never" />
+    <item android:id="@+id/action_about"
+        android:title="@string/app_name"
+        android:icon="@drawable/adsense_for_search"
+        Stop:showAsAction="ifRoom"/>
+
+</menu>
