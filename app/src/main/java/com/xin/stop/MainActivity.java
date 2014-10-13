@@ -3,20 +3,48 @@ package com.xin.stop;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.xin.stop.chatManager.ConnectionSingleton;
+import com.xin.stop.chatManager.XMPPTCPThread;
+
+import org.jivesoftware.smack.SmackException;
+import org.jivesoftware.smack.tcp.XMPPTCPConnection;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 public class MainActivity extends Activity {
 
     Button Stop = null;
+    Handler chatHandler = null;
+    TextView txUser;
+    boolean backKeyClickNum = false;
+    public static XMPPTCPConnection connection;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        txUser = (TextView) findViewById(R.id.textViewUser);
+
+        chatHandler = new Handler(new Handler.Callback() {
+            @Override
+            public boolean handleMessage(Message msg) {
+               txUser.setText((CharSequence) msg.obj);
+                return true;
+            }
+        });
+        new XMPPTCPThread(chatHandler).start();
 
         final Intent barActivity = new Intent(this, BarActivity.class);
         Stop = (Button) findViewById(R.id.stop_button);
@@ -38,6 +66,37 @@ public class MainActivity extends Activity {
     }
 
     @Override
+    public void onBackPressed() {
+        if(backKeyClickNum == false){
+            Toast.makeText(this,R.string.back_key_Confirmation,Toast.LENGTH_SHORT ).show();
+            backKeyClickNum = !backKeyClickNum;
+            new Timer().schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    backKeyClickNum = !backKeyClickNum;
+                }
+            }, 2000);
+        } else {
+            finish();
+        }
+    }
+
+    @Override
+    public void finish() {
+        new Thread(){
+            @Override
+            public void run() {
+                try {
+                    ConnectionSingleton.getXMPPTCPConnection().disconnect();
+                } catch (SmackException.NotConnectedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }.start();
+        super.finish();
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
@@ -49,4 +108,5 @@ public class MainActivity extends Activity {
         return super.onOptionsItemSelected(item);
 
     }
+
 }
