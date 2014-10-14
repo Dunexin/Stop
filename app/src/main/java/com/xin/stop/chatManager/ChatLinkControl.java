@@ -1,5 +1,6 @@
 package com.xin.stop.chatManager;
 
+import org.jivesoftware.smack.ChatManager;
 import org.jivesoftware.smack.SmackException;
 import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smack.tcp.XMPPTCPConnection;
@@ -25,7 +26,7 @@ public class ChatLinkControl {
                     e.printStackTrace();
                 }
             }
-        }.run();
+        }.start();
     }
     static public void af(){
         new Thread(){
@@ -33,6 +34,7 @@ public class ChatLinkControl {
             public void run() {
 
                 try {
+                    ChatManager chatManager = ChatManager.getInstanceFor(connection);
                     connection.disconnect();
                 } catch (SmackException.NotConnectedException e) {
                     e.printStackTrace();

@@ -3,10 +3,10 @@
     android:orientation="horizontal"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:id="@+id/list_item_click">
+    android:id="@+id/user_list_active_item_click">
 
 
-    <ImageView android:id="@+id/img"
+    <ImageView android:id="@+id/user_list_active_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"/>
@@ -15,12 +15,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
-        <TextView android:id="@+id/title"
+        <TextView android:id="@+id/user_list_active_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
             android:textSize="22dp" />
-        <TextView android:id="@+id/info"
+        <TextView android:id="@+id/user_list_active_info"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/DarkGray"

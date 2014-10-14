@@ -9,7 +9,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 
 import com.xin.stop.adapterView.ActiveBarListViewAdapter;
 
@@ -33,10 +32,6 @@ public class BarActivity extends ActionBarActivity {
 
         listView = (ListView) findViewById(R.id.list_view_bar);
 
-        SimpleAdapter adapter = new SimpleAdapter(this, getDate(), R.layout.list_view_item,
-                new String[]{"title", "info", "img"},
-                new int[]{R.id.title, R.id.info, R.id.img}
-        );
         listView.setAdapter(new ActiveBarListViewAdapter(this));
 
     }

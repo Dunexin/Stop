@@ -55,10 +55,10 @@ public class ActiveBarListViewAdapter extends BaseAdapter{
             convertView =layoutInflater.inflate(R.layout.list_view_item, null);
             holder = new ViewHolder();
 
-            holder.imageView = (ImageView) convertView.findViewById(R.id.img);
-            holder.TVInfo = (TextView) convertView.findViewById(R.id.info);
-            holder.TVTile = (TextView) convertView.findViewById(R.id.title);
-            holder.view = convertView.findViewById(R.id.list_item_click);
+            holder.imageView = (ImageView) convertView.findViewById(R.id.user_list_active_image);
+            holder.TVInfo = (TextView) convertView.findViewById(R.id.user_list_active_info);
+            holder.TVTile = (TextView) convertView.findViewById(R.id.user_list_active_title);
+            holder.view = convertView.findViewById(R.id.user_list_active_item_click);
 
             convertView.setTag(holder);
         }
