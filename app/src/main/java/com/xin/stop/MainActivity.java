@@ -1,9 +1,14 @@
 package com.xin.stop;
 
 import android.app.Activity;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
+import android.os.Binder;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.IBinder;
 import android.os.Message;
 import android.util.Log;
 import android.view.Menu;
@@ -25,11 +30,13 @@ import java.util.TimerTask;
 
 public class MainActivity extends Activity {
 
-    Button Stop = null;
-    Handler chatHandler = null;
-    TextView txUser;
-    boolean backKeyClickNum = false;
-    public static XMPPTCPConnection connection;
+    private Button Stop = null;
+    private Handler chatHandler = null;
+    private TextView txUser;
+    private boolean backKeyClickNum = false;
+    private static XMPPTCPConnection connection;
+    private ChatMangerService mangerService = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,8 +62,22 @@ public class MainActivity extends Activity {
                 startActivity(barActivity);
             }
         });
+        Intent chatManagerService = new Intent(this, ChatMangerService.class);
+        bindService(chatManagerService, mConnection, Context.BIND_AUTO_CREATE);
     }
 
+    private ServiceConnection mConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+
+            mangerService = ((ChatMangerService.workBinder)service).getChatManagerService();
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+
+        }
+    };
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
