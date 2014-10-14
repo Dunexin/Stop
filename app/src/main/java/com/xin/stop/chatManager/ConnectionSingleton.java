@@ -9,7 +9,7 @@ import org.jivesoftware.smack.tcp.XMPPTCPConnection;
  */
 public class ConnectionSingleton extends  XMPPTCPConnection{
 
-    public static final ConnectionConfiguration connConfig = new ConnectionConfiguration("192.168.41.57", 5222);
+    public static ConnectionConfiguration connConfig = new ConnectionConfiguration("192.168.41.57", 5222);
     public volatile static ConnectionSingleton connection = null;
     static {
         SmackConfiguration.DEBUG_ENABLED = true;
