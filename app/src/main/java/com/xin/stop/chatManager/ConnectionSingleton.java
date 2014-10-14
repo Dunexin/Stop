@@ -5,7 +5,7 @@ import org.jivesoftware.smack.SmackConfiguration;
 import org.jivesoftware.smack.tcp.XMPPTCPConnection;
 
 /**
- * Created by Administrator on 2014/10/13.
+ * Created by xin on 2014/10/13.
  */
 public class ConnectionSingleton extends  XMPPTCPConnection{
 

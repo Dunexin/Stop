@@ -20,7 +20,7 @@ import java.util.Collection;
 import java.util.Iterator;
 
 /**
- * Created by Administrator on 2014/10/13.
+ * Created by xin on 2014/10/13.
  */
 public class XMPPTCPThread extends Thread{
 

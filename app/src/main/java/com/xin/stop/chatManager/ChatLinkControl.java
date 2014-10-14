@@ -7,7 +7,7 @@ import org.jivesoftware.smack.tcp.XMPPTCPConnection;
 import java.io.IOException;
 
 /**
- * Created by Administrator on 2014/10/13.
+ * Created by xin on 2014/10/13.
  */
 public class ChatLinkControl {
     static final private XMPPTCPConnection connection = ConnectionSingleton.getXMPPTCPConnection();

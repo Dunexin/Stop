@@ -14,7 +14,7 @@ import com.xin.stop.R;
 
 
 /**
- * Created by Administrator on 2014/10/12.
+ * Created by xin on 2014/10/12.
  */
 public class ActiveBarListViewAdapter extends BaseAdapter{
 
