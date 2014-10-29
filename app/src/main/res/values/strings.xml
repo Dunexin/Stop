@@ -6,8 +6,8 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_action_bar">ActionBarActivity</string>
     <string name="title_activity_bar">BarActivity</string>
-
     <string name="back_key_Confirmation">再按一次退出程序</string>
     <string name="host_address">192.168.41.57</string>
+    <string name="title_activity_base">BaseActivity</string>
 
 </resources>

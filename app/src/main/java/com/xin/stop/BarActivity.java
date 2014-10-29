@@ -26,11 +26,11 @@ public class BarActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_bar);
+        setContentView(R.layout.chat_view);
 
         initActionBar();
 
-        listView = (ListView) findViewById(R.id.list_view_bar);
+        listView = (ListView) findViewById(R.id.chat_list);
 
         listView.setAdapter(new ActiveBarListViewAdapter(this));
 

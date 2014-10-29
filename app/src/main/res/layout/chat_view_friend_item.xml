@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="1dp"
+        android:background="@drawable/me"
+        android:layout_alignParentLeft="true"
+        android:id="@+id/friendImage" />
+
+    <TextView
+        android:id="@+id/friend_list_active_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="40dp"
+        android:layout_alignTop="@+id/friendImage"
+        android:layout_toRightOf="@+id/friendImage"
+        android:textColor="@color/black"
+        android:background="@drawable/skin_aio_friend_bubble_nor_1"
+        android:text="翻开历史典籍阿里"
+        android:textSize="15sp"
+        />
+
+
+</RelativeLayout>

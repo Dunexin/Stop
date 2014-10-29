@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" 
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:id="@+id/chat_bottom_linear"
+        android:layout_width="match_parent"
+        android:layout_height="52dip"
+        android:background="@color/blue"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:paddingTop="7dip"
+        android:paddingBottom="3dip">
+
+        <EditText
+            android:id="@+id/chat_bottom_edittext"
+            android:layout_width="match_parent"
+            android:layout_height="32dip"
+            android:layout_marginLeft="5dip"
+            android:layout_marginRight="7dip"
+            android:layout_weight="1.5"
+            android:background="@color/red"/>
+        <Button
+            android:id="@+id/chat_bottom_sendbutton"
+            android:layout_width="match_parent"
+            android:layout_height="30dip"
+            android:layout_weight="5.5"
+            android:layout_marginRight="4dip"
+            android:layout_marginBottom="3dip"
+            android:background="@drawable/send_background"
+            android:text="发送"
+            android:textColor="@android:color/white"/>"
+
+
+    </LinearLayout>
+    <ListView
+        android:id="@+id/chat_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_above="@id/chat_bottom_linear"
+        android:fadingEdge="none"
+        android:background="#f0f0f0"
+        android:divider="#aaaaaa"
+        android:dividerHeight="0px">
+    </ListView>
+</RelativeLayout>
