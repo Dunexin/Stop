@@ -33,7 +33,6 @@ public class BarActivity extends ActionBarActivity {
         listView = (ListView) findViewById(R.id.chat_list);
 
         listView.setAdapter(new ActiveBarListViewAdapter(this));
-
     }
     private List<Map<String, Object>> getDate(){
 

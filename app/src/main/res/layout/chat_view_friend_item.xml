@@ -21,7 +21,6 @@
         android:layout_toRightOf="@+id/friendImage"
         android:textColor="@color/black"
         android:background="@drawable/skin_aio_friend_bubble_nor_1"
-        android:text="翻开历史典籍阿里"
         android:textSize="15sp"
         />
 

@@ -21,7 +21,6 @@
         android:layout_toLeftOf="@+id/userImage"
         android:textColor="@color/white"
         android:background="@drawable/skin_aio_user_bubble_nor_2"
-        android:text="翻开历史典籍阿里"
         android:textSize="15sp"
         />
 

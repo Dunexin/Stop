@@ -156,7 +156,8 @@
     <color name="MediumBlue">#0000CD</color>
     <color name="DarkBlue">#00008B</color>
     <color name="Navy">#000080</color>
-    <color name="Black">#000000</color>barbarbar
+    <color name="Black">#000000</color>
+    <color name="Room">#f0f0f0</color>
 </resources>
 
 

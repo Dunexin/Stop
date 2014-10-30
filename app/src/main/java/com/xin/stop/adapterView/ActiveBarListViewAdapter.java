@@ -29,6 +29,16 @@ public class ActiveBarListViewAdapter extends BaseAdapter{
     }
 
     @Override
+    public int getItemViewType(int position) {
+        return position % 2;
+    }
+
+    @Override
+    public int getViewTypeCount() {
+        return 2;
+    }
+
+    @Override
     public Object getItem(int position) {
         return null;
     }
@@ -38,13 +48,6 @@ public class ActiveBarListViewAdapter extends BaseAdapter{
         return 0;
     }
 
-    public static final  class ViewHolder{
-
-        public ImageView imageView;
-        public TextView TVInfo;
-        public TextView TVTile;
-        public View view;
-    }
     public View getView(final int position, View convertView, ViewGroup parent) {
 
         ViewHolder holder = null;
@@ -85,5 +88,12 @@ public class ActiveBarListViewAdapter extends BaseAdapter{
 
         Log.v("xin", String.valueOf(position));
         return convertView;
+    }
+    public static final  class ViewHolder{
+
+        public ImageView imageView;
+        public TextView TVInfo;
+        public TextView TVTile;
+        public View view;
     }
 }
