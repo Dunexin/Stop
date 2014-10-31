@@ -12,5 +12,6 @@
     <string name="title_activity_chat_room">chatRoomActivity</string>
     <string name="search">search</string>
     <string name="chat_news">消息</string>
+    <string name="title_activity_login">LoginActivity</string>
 
 </resources>
