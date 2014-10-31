@@ -86,7 +86,7 @@ public class ActiveChatRoomAdapter extends BaseAdapter{
             holder = (ViewHolder) convertView.getTag();
 
 
-        holder.textView.setText(mMessageData.get(position).getMessage() + position);
+        holder.textView.setText(mMessageData.get(position).getMessage());
         return convertView;
     }
     public static final  class ViewHolder{
