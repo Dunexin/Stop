@@ -38,7 +38,6 @@ public class ChatMangerService extends Service {
 
     public ChatMangerService() {
         super();
-        connection = ConnectionSingleton.getXMPPTCPConnection();
     }
 
     @Override
@@ -84,6 +83,7 @@ public class ChatMangerService extends Service {
 
         this.mChatRoomCallBack = chatRoomCallBack;
     }
+
     public void SendMessageToFriend(final String mes){
 
         org.jivesoftware.smack.packet.Message xMeg = new org.jivesoftware.smack.packet.Message(mes, org.jivesoftware.smack.packet.Message.Type.chat);
@@ -92,6 +92,7 @@ public class ChatMangerService extends Service {
         msg.what = SEND_MESSAGE_TO_FRIEND;
         mServiceHandler.sendMessage(msg);
     }
+
     public void createUserChat(final String friendName){
 
         mServiceHandler.post(new Runnable() {
@@ -101,7 +102,15 @@ public class ChatMangerService extends Service {
             }
         });
     }
-    public void connectService(){
+    public void closeChat(){
+        mChat.close();
+        mChat = null;
+    }
+    public void connectService(String mip){
+
+        if(mip != null && mip != "")
+            ConnectionSingleton.setIp(mip);
+        connection = ConnectionSingleton.getXMPPTCPConnection();
 
         mServiceHandler.post(new Runnable() {
             @Override
@@ -118,6 +127,21 @@ public class ChatMangerService extends Service {
             }
         });
     }
+
+    public void unConnectService(){
+
+        mServiceHandler.post(new Runnable() {
+            @Override
+            public void run() {
+
+                try {
+                    connection.disconnect();
+                } catch (SmackException.NotConnectedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
     public void loginService(final String name, final String password){
 
         mServiceHandler.post(new Runnable() {
@@ -128,7 +152,7 @@ public class ChatMangerService extends Service {
                     if(connection.isConnected() && !connection.isAuthenticated()) {
                         connection.login(name, password);
                     }
-                    if(connection.isAuthenticated()){
+                    if(connection.isAuthenticated() && mChatManager == null){
                         mChatManager =  ChatManager.getInstanceFor(connection);
                         mChatManager.addChatListener(new ChatManagerListener() {
                             @Override
@@ -156,7 +180,6 @@ public class ChatMangerService extends Service {
                 }
             }
         });
-
     }
 
     private  final class ServiceHandler extends Handler{
@@ -167,9 +190,8 @@ public class ChatMangerService extends Service {
             switch (msg.what){
                 case SEND_MESSAGE_TO_FRIEND: {
                     try {
-
                         mChat.sendMessage((String) msg.obj);
-                        Log.i("text", (String) msg.obj);
+                        Log.i("why", (String) msg.obj);
                     } catch (SmackException.NotConnectedException e) {
                         e.printStackTrace();
                     } catch (XMPPException e) {

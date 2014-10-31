@@ -56,7 +56,7 @@ public class BaseActivity extends ActionBarActivity {
                 }
             }, 2000);
         } else {
-            finish();
+            super.onBackPressed();
         }
     }
 }

@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -43,9 +44,18 @@ public class ChatRoomActivity extends BaseActivity implements View.OnClickListen
 
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
-            //返回一个MsgService对象
+            Log.i("why", "chat room connect");
             mBound = true;
             mService = ((ChatMangerService.workBinder)service).getChatManagerService();
+            mService.createUserChat("stop@xin-server");
+            mService.setChatRoomCallBack(new ChatRoomCallBack() {
+                @Override
+                public void sendMessageToUser(String msg) {
+
+                    messageData.add(new ChatMessage(ChatMessage.CHAT_TYPE_FRIEND, msg));
+                    chatRoomAdapter.notifyDataSetChanged();
+                }
+            });
         }
     };
 
@@ -57,7 +67,11 @@ public class ChatRoomActivity extends BaseActivity implements View.OnClickListen
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        unbindService(connection);
+        Log.i("why", "room destroy");
+        if(mBound) {
+            mService.closeChat();
+            unbindService(connection);
+        }
     }
 
     @Override
@@ -86,7 +100,6 @@ public class ChatRoomActivity extends BaseActivity implements View.OnClickListen
     @Override
     protected void onStop() {
         super.onStop();
-
     }
 
     @Override
