@@ -161,16 +161,15 @@ public class ChatMangerService extends Service {
         @Override
         public void chatCreated(Chat chat, boolean createdLocally) {
                 Log.i("why", chat.getThreadID());
-//            chat.addMessageListener(new MessageListener() {
-//                @Override
-//                public void processMessage(Chat chat, org.jivesoftware.smack.packet.Message message) {
-//
-//                    Message msg = new Message();
-//                    msg.what = SEND_MESSAGE_TO_USER;
-//                    msg.obj = message.getBody();
-//                    mServiceMainHandler.sendMessage(msg);
-//                }
-//            });
+            chat.addMessageListener(new MessageListener() { //                @Override
+                public void processMessage(Chat chat, org.jivesoftware.smack.packet.Message message) {
+
+                    Message msg = new Message();
+                    msg.what = SEND_MESSAGE_TO_USER;
+                    msg.obj = message.getBody();
+                    mServiceMainHandler.sendMessage(msg);
+                }
+            });
             Log.i("why", String.valueOf(chat.getListeners().size()));
         }
     }
