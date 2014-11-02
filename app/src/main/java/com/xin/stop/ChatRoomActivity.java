@@ -28,11 +28,11 @@ public class ChatRoomActivity extends BaseActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_room);
 
+        ServiceIntent = new Intent(this, ChatMangerService.class);
+        bindService(ServiceIntent, connection, Context.BIND_AUTO_CREATE);
         initActivity();
         createListView();
 
-        ServiceIntent = new Intent(this, ChatMangerService.class);
-        bindService(ServiceIntent, connection, Context.BIND_AUTO_CREATE);
     }
 
     ServiceConnection connection = new ServiceConnection() {
@@ -47,7 +47,7 @@ public class ChatRoomActivity extends BaseActivity implements View.OnClickListen
             Log.i("why", "chat room connect");
             mBound = true;
             mService = ((ChatMangerService.workBinder)service).getChatManagerService();
-            mService.createUserChat("stop@xin-server");
+            mService.createUserChat("stop@win7-20140419vw");
             mService.setChatRoomCallBack(new ChatRoomCallBack() {
                 @Override
                 public void sendMessageToUser(String msg) {
@@ -68,10 +68,6 @@ public class ChatRoomActivity extends BaseActivity implements View.OnClickListen
     protected void onDestroy() {
         super.onDestroy();
         Log.i("why", "room destroy");
-        if(mBound) {
-            mService.closeChat();
-            unbindService(connection);
-        }
     }
 
     @Override

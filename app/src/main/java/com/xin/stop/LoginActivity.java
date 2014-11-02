@@ -3,7 +3,6 @@ package com.xin.stop;
 import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
@@ -15,6 +14,8 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+
 
 
 public class LoginActivity extends Activity {
@@ -30,10 +31,9 @@ public class LoginActivity extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_login);
 
-        initWidget();
-
         ServiceIntent = new Intent(this, ChatMangerService.class);
         bindService(ServiceIntent, connection, Context.BIND_AUTO_CREATE);
+        initWidget();
         chatRoomActivity = new Intent(this, ChatRoomActivity.class);
     }
 
@@ -82,6 +82,7 @@ public class LoginActivity extends Activity {
 
     class LoginOnClickListener implements View.OnClickListener{
 
+        String IP = null;
         @Override
         public void onClick(View v) {
 
@@ -89,8 +90,20 @@ public class LoginActivity extends Activity {
 
                 case R.id.login_button:
                     if(mBound){
-                        mService.connectService(String.valueOf(iEditText.getText()));
-                        mService.loginService(String.valueOf(uEditText.getText()), String.valueOf(pEditText.getText()));
+                        if(iEditText.length() >= 1){
+                            IP = iEditText.getText().toString();
+                        }
+                        if(uEditText.length() < 1){
+                            Toast.makeText(LoginActivity.this, getString(R.string.emptyUserName), Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
+                        if(pEditText.length() < 1){
+                            Toast.makeText(LoginActivity.this, getString(R.string.emptyPassCode), Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        mService.connectService(IP);
+                        mService.loginService(uEditText.getText().toString(), pEditText.getText().toString());
                         startActivity(chatRoomActivity);
                     }
                     break;

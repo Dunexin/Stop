@@ -55,7 +55,9 @@ public class ChatMangerService extends Service {
             @Override
             public void run() {
                 try {
-                    connection.disconnect();
+                    if(connection != null && connection.isConnected()) {
+                        connection.disconnect();
+                    }
                 } catch (SmackException.NotConnectedException e) {
                     e.printStackTrace();
                 }
@@ -99,6 +101,14 @@ public class ChatMangerService extends Service {
             @Override
             public void run() {
                 mChat = mChatManager.createChat(friendName, null);
+
+                Log.i("why", mChat.getThreadID());
+                mChat.addMessageListener(new MessageListener() {
+                    @Override
+                    public void processMessage(Chat chat, org.jivesoftware.smack.packet.Message message) {
+                        Log.i("why", message.getBody());
+                    }
+                });
             }
         });
     }
@@ -108,8 +118,10 @@ public class ChatMangerService extends Service {
     }
     public void connectService(String mip){
 
-        if(mip != null && mip != "")
+        if(mip != null && mip != "") {
+            Log.i("why-", mip);
             ConnectionSingleton.setIp(mip);
+        }
         connection = ConnectionSingleton.getXMPPTCPConnection();
 
         mServiceHandler.post(new Runnable() {
@@ -135,12 +147,32 @@ public class ChatMangerService extends Service {
             public void run() {
 
                 try {
-                    connection.disconnect();
+                    if(connection != null && connection.isConnected())
+                        connection.disconnect();
                 } catch (SmackException.NotConnectedException e) {
                     e.printStackTrace();
                 }
             }
         });
+    }
+
+    class ManagerListener implements ChatManagerListener {
+
+        @Override
+        public void chatCreated(Chat chat, boolean createdLocally) {
+                Log.i("why", chat.getThreadID());
+//            chat.addMessageListener(new MessageListener() {
+//                @Override
+//                public void processMessage(Chat chat, org.jivesoftware.smack.packet.Message message) {
+//
+//                    Message msg = new Message();
+//                    msg.what = SEND_MESSAGE_TO_USER;
+//                    msg.obj = message.getBody();
+//                    mServiceMainHandler.sendMessage(msg);
+//                }
+//            });
+            Log.i("why", String.valueOf(chat.getListeners().size()));
+        }
     }
     public void loginService(final String name, final String password){
 
@@ -152,25 +184,10 @@ public class ChatMangerService extends Service {
                     if(connection.isConnected() && !connection.isAuthenticated()) {
                         connection.login(name, password);
                     }
-                    if(connection.isAuthenticated() && mChatManager == null){
-                        mChatManager =  ChatManager.getInstanceFor(connection);
-                        mChatManager.addChatListener(new ChatManagerListener() {
-                            @Override
-                            public void chatCreated(Chat chat, boolean createdLocally) {
-                            chat.addMessageListener(new MessageListener() {
-                                @Override
-                                public void processMessage(Chat chat, org.jivesoftware.smack.packet.Message message) {
-
-                                    Message msg = new Message();
-                                    msg.what = SEND_MESSAGE_TO_USER;
-                                    msg.obj = message.getBody();
-                                    mServiceMainHandler.sendMessage(msg);
-                                }
-                            });
-                            }
-                        });
+                    if(connection.isAuthenticated() && mChatManager == null) {
+                        mChatManager = ChatManager.getInstanceFor(connection);
+                        mChatManager.addChatListener(new ManagerListener());
                     }
-
                 } catch (XMPPException e) {
                     e.printStackTrace();
                 } catch (SmackException e) {

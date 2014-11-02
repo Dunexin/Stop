@@ -9,13 +9,9 @@ import org.jivesoftware.smack.tcp.XMPPTCPConnection;
  */
 public class ConnectionSingleton extends  XMPPTCPConnection{
 
-    private  static String IP = "223.81.249.182";
-    public static ConnectionConfiguration connConfig = new ConnectionConfiguration(IP, 5222);
+    private  static String IP = "192.168.41.57";
+    public static ConnectionConfiguration connConfig = null;
     public volatile static ConnectionSingleton connection = null;
-    static {
-        SmackConfiguration.DEBUG_ENABLED = true;
-        connConfig.setSecurityMode(ConnectionConfiguration.SecurityMode.disabled);
-    }
     private ConnectionSingleton(){
         super(connConfig);
     };
@@ -24,6 +20,9 @@ public class ConnectionSingleton extends  XMPPTCPConnection{
         if(connection == null){
             synchronized (ConnectionSingleton.class){
                 if(connection == null){
+                    connConfig = new ConnectionConfiguration(IP, 5222);
+                    SmackConfiguration.DEBUG_ENABLED = true;
+                    connConfig.setSecurityMode(ConnectionConfiguration.SecurityMode.disabled);
                     connection = new ConnectionSingleton();
                 }
             }

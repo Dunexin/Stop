@@ -13,5 +13,7 @@
     <string name="search">search</string>
     <string name="chat_news">消息</string>
     <string name="title_activity_login">LoginActivity</string>
+    <string name="emptyUserName" >用户名不能为空</string>
+    <string name="emptyPassCode" >密码不能为空</string>
 
 </resources>
