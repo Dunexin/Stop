@@ -22,8 +22,8 @@ public class LoginActivity extends Activity {
 
     private Intent ServiceIntent;
     private Intent chatRoomActivity = null;
-    public ChatMangerService mService = null;
-    public boolean mBound = false;
+    private ChatMangerService mService = null;
+    private boolean mBound = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -11,6 +11,7 @@ import android.os.Message;
 import android.os.Process;
 import android.util.Log;
 
+import com.xin.stop.chatManager.ChatManagerControl;
 import com.xin.stop.chatManager.ConnectionSingleton;
 
 import org.jivesoftware.smack.Chat;
